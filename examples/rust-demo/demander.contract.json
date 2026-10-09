@@ -1,0 +1,1 @@
+{"schema_version":"dpc-1/1","contract_id":"rust-demo","criteria":[{"id":"rust-offline-check","probe":"rust_check","path":".","depth":"P2","criticality":"required","observation":"Rust project compiles offline"},{"id":"rust-tests","probe":"rust_test","path":".","depth":"P2","criticality":"required","observation":"Rust tests succeed offline"}]}

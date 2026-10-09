@@ -1,0 +1,1 @@
+{"schema_version":"dpc-1/1","contract_id":"typescript-demo","criteria":[{"id":"tsc-strict","path":".","probe":"typescript_typecheck","depth":"P2","criticality":"required","observation":"TypeScript strict typecheck completes without diagnostics"}]}
