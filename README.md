@@ -37,3 +37,21 @@ Actual runtime/gameplay instrumentation, Android device test, Godot run adapter,
 Exit codes: `0` QUALIFIED (only the declared contract), `2` PARTIAL, `3` BLOCKED, `4` REJECTED, `5` tool/contract error.
 
 Do **not** treat an automated contract PASS as a guarantee of correct end-user behavior. Tests are claims bounded by their observable verification criteria.
+
+## ProofForge commercial experiment (branch-only)
+
+An experimental, **generated-fixture-only** proof demonstration and a read-only
+Gold Rush mining assay are documented in
+[Commercial Experiment 001](docs/commercial/PROOF_FORGE_PILOT.md) and
+[Asset Admission / Preservation](docs/commercial/ASSET_ADMISSION.md).
+
+Run the scoped demo from the repository root with Python 3.11+:
+
+~~~powershell
+python -m unittest discover -s tests -v
+python -m scripts.proof_pilot --out "$env:TEMP\demander-pilot-001"
+~~~
+
+This is not a commercial release, secure sandbox, customer pilot, Android
+verification, or permission to import source from other repositories. The full
+39-repository Gold Rush register stays outside this public repository.
