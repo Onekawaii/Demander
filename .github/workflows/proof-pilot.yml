@@ -1,0 +1,43 @@
+name: Demander proof pilot (generated fixtures only)
+
+on:
+  push:
+    branches:
+      - "experiment/gold-rush-proof-pilot-20261118"
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  bounded-python-proof:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.11", "3.13"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Verify source compiles
+        run: python -m compileall -q demander scripts tests
+      - name: Execute unit and adversarial tests
+        run: python -m unittest discover -s tests -v
+      - name: Run bounded P1/P2 pilot, including broken control
+        env:
+          PYTHONPATH: .
+        run: |
+          python -m scripts.proof_pilot --out "$RUNNER_TEMP/demander-pilot"
+          python -m json.tool "$RUNNER_TEMP/demander-pilot/pilot_summary.json" > /dev/null
+      - name: Upload pilot receipts (not customer acceptance)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: proof-pilot-python-${{ matrix.python-version }}
+          path: ${{ runner.temp }}/demander-pilot/
+          if-no-files-found: warn
+          retention-days: 14
